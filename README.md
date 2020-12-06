@@ -1,2 +1,2 @@
 # vue3-loading
-customer Loading component
+custom Loading component
