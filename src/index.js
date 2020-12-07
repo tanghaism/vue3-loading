@@ -14,6 +14,31 @@ export default {
   install: (app, options) => {
     try{
       const { component = DefaultLoading, theme = 'light' } = options || {}
+
+      app.directive('loading', {
+        beforeMount (el, binding, vNode, oldVNode) {
+          const loading = createApp(h(Loading, { theme }, () => [
+            h(component)
+          ]))
+          el.loading = el
+          el.loadingRoot = document.createElement('div')
+          el.comp = loading.mount(el.loadingRoot)
+          toggleLoading(el, binding)
+        },
+        updated (el, binding) {
+          if (binding.oldValue !== binding.value) {
+            toggleLoading(el, binding)
+          }
+        },
+        unmounted (el, binding) {
+          if (el.domInserted) {
+            removeDom(el, binding)
+            toggleLoading(el, { value: false })
+          }
+          el.comp = null
+        }
+      })
+
       const toggleLoading = async (el, binding) => {
         if (binding.value) {
           await nextTick(() => {
@@ -47,30 +72,6 @@ export default {
           } catch (e) {}
         }, 300)
       }
-
-      app.directive('loading', {
-        beforeMount (el, binding, vNode, oldVNode) {
-          const loading = createApp(h(Loading, { theme }, () => [
-            h(component)
-          ]))
-          el.loading = el
-          el.loadingRoot = document.createElement('div')
-          el.comp = loading.mount(el.loadingRoot)
-          toggleLoading(el, binding)
-        },
-        updated (el, binding) {
-          if (binding.oldValue !== binding.value) {
-            toggleLoading(el, binding)
-          }
-        },
-        unmounted (el, binding) {
-          if (el.domInserted) {
-            removeDom(el, binding)
-            toggleLoading(el, { value: false })
-          }
-          el.comp = null
-        }
-      })
     }catch (e) {
       console.warn(e)
     }

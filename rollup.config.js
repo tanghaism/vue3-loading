@@ -34,18 +34,27 @@ module.exports = [{
   // 配置打包出口
   // 分别打包两种模块类型 cjs 和 es
   // 路径使用 package.json 中配置的 main 和 module
-  output: [
-    {
-      exports: 'auto',
-      file: 'dist/cjs/index.js',
-      format: 'cjs'
-    },
-    {
-      exports: 'auto',
-      file: "dist/es/index.js",
-      format: 'es'
-    },
-  ],
+  output: {
+    exports: 'auto',
+    file: "dist/index.js",
+    format: 'es'
+  },
+  // [
+    // {
+    //   exports: 'auto',
+    //   file: 'dist/cjs/index.js',
+    //   format: 'cjs'
+    // },
+    // {
+    //   exports: 'auto',
+    //   file: "dist/es/index.js",
+    //   format: 'es'
+    // },
+  // ],
   // 配置插件
-  plugins: plugins
+  plugins: plugins,
+  //  外链
+  external: [
+    'vue'
+  ]
 }]

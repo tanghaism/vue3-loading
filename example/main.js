@@ -1,12 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
-import loading from '/@/index.js'
+import loading from '/d/index.js'
 import CustomLoading from './components/Loading.vue'
+const app = createApp(App).use(loading, {component: CustomLoading, theme: 'dark'})
 
-createApp(App)
-  .use(loading, {
-    component: CustomLoading,
-    theme: 'dark'
-  })
-  .mount('#app')
+app.mount('#app')

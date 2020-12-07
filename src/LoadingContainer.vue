@@ -1,5 +1,5 @@
 <template>
-    <transition name="fade" mode="out-in">
+    <transition name="fade">
         <div class="custom-loading" :class="theme" v-if="show">
             <div class="loading">
                 <slot></slot>

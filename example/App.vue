@@ -10,7 +10,7 @@
 <script>
   import { ref } from 'vue'
   export default {
-    name: '_example',
+    name: 'example',
     setup (props) {
       const loading = ref(false)
       return {
