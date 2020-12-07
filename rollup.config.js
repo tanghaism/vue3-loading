@@ -1,6 +1,7 @@
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
 import json from '@rollup/plugin-json'
+import babel from 'rollup-plugin-babel'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import postcss from 'rollup-plugin-postcss'
 
@@ -16,6 +17,9 @@ const plugins = [
     compileTemplate: true
   }),
   json(),
+  babel({
+    exclude: 'node_modules/**' // 只编译我们的源代码
+  }),
   nodeResolve(),
   postcss({
     // 把 css 插入到 style 中
